@@ -45,16 +45,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Markdown\ConverterMarkdown.cs" />
-    <Compile Include="MarkdownObjectToTypeParser\IObjectToTypeParser.cs" />
+    <Compile Include="MarkdownObjectToTypeParser\IMarkdownObjectToTypeParser.cs" />
     <Compile Include="MarkdownObject\BoldMarkdown.cs" />
     <Compile Include="MarkdownObject\CodeMarkdown.cs" />
-    <Compile Include="MarkdownObject\Document.cs" />
+    <Compile Include="MarkdownObject\DocumentMarkdown.cs" />
     <Compile Include="MarkdownObject\IMarkdownObject.cs" />
     <Compile Include="MarkdownObject\ItalicMarkdown.cs" />
     <Compile Include="MarkdownObject\MarkdownObject.cs" />
     <Compile Include="MarkdownObject\ParagraphMarkdown.cs" />
-    <Compile Include="MarkdownObjectToTypeParser\ObjectToHTMLParser.cs" />
-    <Compile Include="Markdown\MarkdownToMarkdownObjectParser.cs" />
+    <Compile Include="MarkdownObjectToTypeParser\MarkdownObjectToHTMLParser.cs" />
+    <Compile Include="Markdown\MarkdownStrToMarkdownObjectParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Markdown\TreeMarkdownObject.cs" />

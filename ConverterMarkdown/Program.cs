@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using ConverterMarkdown.Markdown;
 
 namespace ConverterMarkdown
 {
@@ -16,7 +17,7 @@ namespace ConverterMarkdown
             using (var streamReader = new StreamReader(fileStream))
                 rawFileStr = streamReader.ReadToEnd();
 
-            string html = ConverterMarkdown<ObjectToHTMLParser>.Parse(rawFileStr);
+            string html = ConverterMarkdown<MarkdownObjectToHTMLParser>.Parse(rawFileStr);
 
             string pathOut = args[1];
             using (var fileStream = new FileStream(pathOut, FileMode.Create))

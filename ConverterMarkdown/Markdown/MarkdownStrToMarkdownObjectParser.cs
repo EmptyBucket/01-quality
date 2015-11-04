@@ -1,6 +1,6 @@
 ﻿namespace ConverterMarkdown.Markdown
 {
-    class MarkdownToMarkdownObjectParser
+    class MarkdownStrToMarkdownObjectParser
     {
     }
 }

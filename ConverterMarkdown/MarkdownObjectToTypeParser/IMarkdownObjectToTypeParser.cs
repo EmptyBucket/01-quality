@@ -1,6 +1,6 @@
 ﻿namespace ConverterMarkdown
 {
-    interface IObjectToTypeParser
+    interface IMarkdownObjectToTypeParser
     {
     }
 }
