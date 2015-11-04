@@ -1,6 +1,6 @@
 ﻿namespace ConverterMarkdown.MarkdownObject
 {
-    class CodeMarkdown : MarkdownObject
+    public class CodeMarkdown : MarkdownObject
     {
     }
 }

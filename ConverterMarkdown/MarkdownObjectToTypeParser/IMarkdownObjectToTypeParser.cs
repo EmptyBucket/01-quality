@@ -1,6 +1,9 @@
-﻿namespace ConverterMarkdown
+﻿using ConverterMarkdown.Markdown;
+
+namespace ConverterMarkdown.MarkdownObjectToTypeParser
 {
-    interface IMarkdownObjectToTypeParser
+    public interface IMarkdownObjectToTypeParser
     {
+        string Parse(TreeMarkdownObject treeMarkdownObject);
     }
 }

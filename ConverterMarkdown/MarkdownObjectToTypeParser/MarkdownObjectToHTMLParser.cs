@@ -1,6 +1,13 @@
-﻿namespace ConverterMarkdown
+﻿using System;
+using ConverterMarkdown.Markdown;
+
+namespace ConverterMarkdown.MarkdownObjectToTypeParser
 {
-    class MarkdownObjectToHTMLParser : IMarkdownObjectToTypeParser
+    public class MarkdownObjectToHTMLParser : IMarkdownObjectToTypeParser
     {
+        public string Parse(TreeMarkdownObject treeMarkdownObject)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

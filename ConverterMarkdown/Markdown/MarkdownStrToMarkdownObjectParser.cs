@@ -1,6 +1,18 @@
-﻿namespace ConverterMarkdown.Markdown
+﻿using System;
+
+namespace ConverterMarkdown.Markdown
 {
-    class MarkdownStrToMarkdownObjectParser
+    public class MarkdownStrToMarkdownObjectParser
     {
+        private string rawFileStr;
+
+        public MarkdownStrToMarkdownObjectParser()
+        {
+        }
+
+        public TreeMarkdownObject Parse(string rawFileStr)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

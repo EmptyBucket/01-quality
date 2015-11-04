@@ -1,6 +1,6 @@
 ﻿namespace ConverterMarkdown.MarkdownObject
 {
-    class ItalicMarkdown : MarkdownObject
+    public class ItalicMarkdown : MarkdownObject
     {
     }
 }

@@ -2,7 +2,7 @@
 
 namespace ConverterMarkdown.MarkdownObject
 {
-    class MarkdownObject : IMarkdownObject
+    public class MarkdownObject : IMarkdownObject
     {
         public List<IMarkdownObject> Child { get; private set; } = new List<IMarkdownObject>();
 

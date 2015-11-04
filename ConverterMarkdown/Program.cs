@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using ConverterMarkdown.Markdown;
+using ConverterMarkdown.MarkdownObjectToTypeParser;
 
 namespace ConverterMarkdown
 {
@@ -18,7 +19,9 @@ namespace ConverterMarkdown
             using (var streamReader = new StreamReader(fileStream))
                 rawFileStr = streamReader.ReadToEnd();
 
-            string html = ConverterMarkdown<MarkdownObjectToHTMLParser>.Parse(rawFileStr);
+            MarkdownObjectToHTMLParser toHTMLParser = new MarkdownObjectToHTMLParser();
+            MarkdownToTypeConverter converterMarkdown = new MarkdownToTypeConverter(toHTMLParser);
+            string html = converterMarkdown.Convert(rawFileStr);
 
             string pathOut;
             try

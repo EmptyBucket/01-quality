@@ -2,7 +2,7 @@
 
 namespace ConverterMarkdown.MarkdownObject
 {
-    interface IMarkdownObject
+    public interface IMarkdownObject
     {
         List<IMarkdownObject> Child { get; }
         string Content { get; }
