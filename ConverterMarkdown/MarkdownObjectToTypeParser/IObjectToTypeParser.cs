@@ -1,0 +1,6 @@
+﻿namespace ConverterMarkdown
+{
+    interface IObjectToTypeParser
+    {
+    }
+}
