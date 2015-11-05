@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace ConverterMarkdown.MarkdownObject
+namespace ConverterMarkdown.MarkdownObj
 {
     public interface IMarkdownObject
     {
-        List<IMarkdownObject> Child { get; }
         string Content { get; }
+
+        IEnumerable<IMarkdownObject> Child { get; set; }
     }
 }

@@ -1,10 +1,22 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
-namespace ConverterMarkdown.MarkdownObject
+namespace ConverterMarkdown.MarkdownObj
 {
     public class MarkdownObject : IMarkdownObject
     {
-        public List<IMarkdownObject> Child { get; private set; } = new List<IMarkdownObject>();
+        private IEnumerable<IMarkdownObject> mChild = new List<IMarkdownObject>();
+        public IEnumerable<IMarkdownObject> Child
+        {
+            get
+            {
+                return mChild;
+            }
+            set
+            {
+                mChild = new List<IMarkdownObject>(value);
+            }
+        }
 
         public string Content { get; private set; }
 

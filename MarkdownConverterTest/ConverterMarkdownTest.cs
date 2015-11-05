@@ -12,7 +12,7 @@ namespace MarkdownConverterTest
         public void MarkdownText_ConvertToHTML_CorrectHTMLText()
         {
             MarkdownObjectToHTMLParser toHTMLParser = new MarkdownObjectToHTMLParser();
-            MarkdownToTypeConverter converterMarkdown = new MarkdownToTypeConverter(toHTMLParser);
+            MarkdownConverter converterMarkdown = new MarkdownConverter(toHTMLParser);
             string rawMarkdown = File.ReadAllText("/Resources/MarkdownText.md");
             string html = converterMarkdown.Convert(rawMarkdown);
 

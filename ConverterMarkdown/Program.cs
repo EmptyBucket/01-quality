@@ -17,7 +17,7 @@ namespace ConverterMarkdown
             string rawFileStr = File.ReadAllText(pathInMarkdown);
 
             MarkdownObjectToHTMLParser toHTMLParser = new MarkdownObjectToHTMLParser();
-            MarkdownToTypeConverter converterMarkdown = new MarkdownToTypeConverter(toHTMLParser);
+            MarkdownConverter converterMarkdown = new MarkdownConverter(toHTMLParser);
             string html = converterMarkdown.Convert(rawFileStr);
 
             string pathOut;

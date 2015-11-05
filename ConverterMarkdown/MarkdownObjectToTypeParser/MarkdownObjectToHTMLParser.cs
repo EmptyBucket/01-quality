@@ -1,11 +1,11 @@
 ﻿using System;
-using ConverterMarkdown.Markdown;
+using ConverterMarkdown.MarkdownObj;
 
 namespace ConverterMarkdown.MarkdownObjectToTypeParser
 {
-    public class MarkdownObjectToHTMLParser : IMarkdownObjectToTypeParser
+    public class MarkdownObjectToHTMLParser : IMarkdownObjectParser
     {
-        public string Parse(TreeMarkdownObject treeMarkdownObject)
+        public string Parse(DocumentMarkdown treeMarkdownObject)
         {
             throw new NotImplementedException();
         }
