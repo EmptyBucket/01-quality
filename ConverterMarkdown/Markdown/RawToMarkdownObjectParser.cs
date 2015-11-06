@@ -42,6 +42,14 @@ namespace ConverterMarkdown.Markdown
             return documentMarkdown;
         }
 
+        private List<MarkdownObject> ContentParse(string content)
+        {
+            List<MarkdownObject> listMarkdownObject = CurrentLayerParse(content);
+            foreach (var item in listMarkdownObject)
+                item.Child = ContentParse(item.Content);
+            return listMarkdownObject;
+        }
+
         public List<MarkdownObject> CurrentLayerParse(string rawStr)
         {
             List<MarkdownObject> listMarkdownObjectOutLayer = new List<MarkdownObject>();
@@ -76,14 +84,6 @@ namespace ConverterMarkdown.Markdown
             }
 
             return listMarkdownObjectOutLayer;
-        }
-
-        private List<MarkdownObject> ContentParse(string content)
-        {
-            List<MarkdownObject> listMarkdownObject = CurrentLayerParse(content);
-            foreach (var item in listMarkdownObject)
-                item.Child = ContentParse(item.Content);
-            return listMarkdownObject;
         }
     }
 }

@@ -1,13 +1,28 @@
-﻿using System;
-using ConverterMarkdown.MarkdownObj;
+﻿using ConverterMarkdown.MarkdownObj;
 
 namespace ConverterMarkdown.MarkdownObjectToTypeParser
 {
-    public class MarkdownObjectToHTMLParser : IMarkdownObjectParser
+    public class MarkdownObjectToHTMLParser : MarkdownObjectParser
     {
-        public string Parse(DocumentMarkdown treeMarkdownObject)
+        public override MarkdownObjectInterpretator InterpretatorBold { get; } = new MarkdownObjectInterpretator(typeof(BoldMarkdown), "<strong>", "</strong>");
+
+        public override MarkdownObjectInterpretator InterpretatorCode { get; } = new MarkdownObjectInterpretator(typeof(CodeMarkdown), "<code>", "</code>");
+
+        public override MarkdownObjectInterpretator InterpretatorDocument { get; } = new MarkdownObjectInterpretator(typeof(DocumentMarkdown), "<body>", "</body>");
+
+        public override MarkdownObjectInterpretator InterpretatorItalic { get; } = new MarkdownObjectInterpretator(typeof(ItalicMarkdown), "<em>", "</em>");
+
+        public override MarkdownObjectInterpretator InterpretatorParagraph { get; } = new MarkdownObjectInterpretator(typeof(ParagraphMarkdown), "<p>", "/<p>");
+
+        public override MarkdownObjectInterpretator InterpretatorText { get; } = new MarkdownObjectInterpretator(typeof(TextMarkdown));
+
+        public override string Parse(DocumentMarkdown documentMarkdown)
         {
-            throw new NotImplementedException();
+            string htmlBody = base.Parse(documentMarkdown);
+            string html = $"<!DOCTYPE html><html><head></head>{htmlBody}</html>";
+            return html;
         }
+
+        public MarkdownObjectToHTMLParser() :base() { }
     }
 }
