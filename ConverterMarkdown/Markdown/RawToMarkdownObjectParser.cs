@@ -8,28 +8,28 @@ namespace ConverterMarkdown.Markdown
 {
     public class RawToMarkdownObjectParser
     {
-        private readonly string PatternItalic = @"(?:_(?!\d))";
-        private readonly string PatterBold = "(?:__)";
-        private readonly string PatternCode = "(?:`)";
+        private const string PatternItalic = @"(?:[^_\\]|^)(_(?!_|\d+))(.+?[^_\\])_(?!_|\d+)";
+        private const string PatterBold = @"(?:[^\\]|^)(__)(.+?[^\\])__";
+        private const string PatternCode = @"(?:[^\\]|^)(`)(.+?[^\\])`";
+
+        private readonly Regex regItalic = new Regex(PatternItalic);
+        private readonly Regex regBold = new Regex(PatterBold);
+        private readonly Regex regCode = new Regex(PatternCode);
 
         private const string Italic = "_";
         private const string Bold = "__";
         private const string Code = "`";
 
-        private readonly Regex mRegMarkdown;
+        private readonly Regex[] mRegArray;
 
         public RawToMarkdownObjectParser()
         {
-            string[] markdownObjectPatterns = new string[]
-                {
-                    PatterBold,
-                    PatternItalic,
-                    PatternCode
-                };
-            string joinMarkdownObjectPatterns = string.Join("|", markdownObjectPatterns);
-            string rootPattern = @"(?:[^\\]|^)({0})(.*?)(?!\\)\1";
-            string pattern = string.Format(rootPattern, joinMarkdownObjectPatterns);
-            mRegMarkdown = new Regex(pattern);
+            mRegArray = new Regex[]
+            {
+                regItalic,
+                regBold,
+                regCode
+            };
         }
 
         public DocumentMarkdown Parse(string rawStr)
@@ -54,16 +54,35 @@ namespace ConverterMarkdown.Markdown
             return markdownParagraphEnumerable;
         }
 
+        private Match FirstFoundSearchPattern(string str, Regex[] regArray)
+        {
+            Match minMatch = regArray
+                .Select(reg => reg.Match(str))
+                .Aggregate((minCurMatch, curMatch) =>
+                {
+                    if (!minCurMatch.Success && curMatch.Success)
+                        return curMatch;
+                    else if (curMatch.Success && minCurMatch.Index > curMatch.Index)
+                        return curMatch;
+                    else
+                        return minCurMatch;
+                });
+            return minMatch;
+        }
+
         public IEnumerable<IMarkdownObject> RawParse(string rawStr)
         {
             List<IMarkdownObject> listMarkdownObjectOutLayer = new List<IMarkdownObject>();
-            Match match = mRegMarkdown.Match(rawStr);
+
+            string currentStr = rawStr;
+            Match match = FirstFoundSearchPattern(currentStr, mRegArray);
             if (!match.Success)
                 listMarkdownObjectOutLayer.Add(new TextMarkdown(rawStr));
             else
             {
                 int indexStartText = 0;
-                while (match.Success)
+
+                while(match.Success)
                 {
                     if (match.Index > indexStartText)
                     {
@@ -72,30 +91,41 @@ namespace ConverterMarkdown.Markdown
                         TextMarkdown textMarkdown = new TextMarkdown(str);
                         listMarkdownObjectOutLayer.Add(textMarkdown);
                     }
-                    indexStartText = match.Index + match.Length;
 
                     string contents = match.Groups[2].ToString();
-                    IEnumerable<IMarkdownObject> child = RawParse(contents);
 
                     string type = match.Groups[1].ToString();
                     MarkdownContainer markdownObject;
                     switch (type)
                     {
+                        case Code:
+                            TextMarkdown text = new TextMarkdown(contents);
+                            IEnumerable<IMarkdownObject> childCode = new List<IMarkdownObject>()
+                            {
+                                text
+                            };
+                            markdownObject = new CodeMarkdown(childCode);
+                            break;
                         case Italic:
-                            markdownObject = new ItalicMarkdown(child);
+                            markdownObject = new ItalicMarkdown(RawParse(contents));
                             break;
                         case Bold:
-                            markdownObject = new BoldMarkdown(child);
-                            break;
-                        case Code:
-                            markdownObject = new CodeMarkdown(child);
+                            markdownObject = new BoldMarkdown(RawParse(contents));
                             break;
                         default:
-                            markdownObject = new MarkdownContainer(child);
+                            markdownObject = new MarkdownContainer(RawParse(contents));
                             break;
                     }
                     listMarkdownObjectOutLayer.Add(markdownObject);
-                    match = match.NextMatch();
+
+                    indexStartText = match.Index + match.Length;
+                    currentStr = new string(rawStr.Skip(indexStartText).ToArray());
+                    match = FirstFoundSearchPattern(currentStr, mRegArray);
+                    if(!match.Success)
+                    {
+                        TextMarkdown textMarkdown = new TextMarkdown(currentStr);
+                        listMarkdownObjectOutLayer.Add(textMarkdown);
+                    }
                 }
             }
             return listMarkdownObjectOutLayer;
