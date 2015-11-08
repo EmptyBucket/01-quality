@@ -1,13 +1,11 @@
-﻿namespace ConverterMarkdown.MarkdownObj
-{
-    public class BoldMarkdown : MarkdownObject
-    {
-        public BoldMarkdown() : base()
-        {
-        }
+﻿using System.Collections.Generic;
 
-        public BoldMarkdown(string content) : base(content)
-        {
-        }
+namespace ConverterMarkdown.MarkdownObj
+{
+    public class BoldMarkdown : MarkdownContainer
+    {
+        public BoldMarkdown() : base() { }
+
+        public BoldMarkdown(IEnumerable<IMarkdownObject> child) : base(child) { }
     }
 }

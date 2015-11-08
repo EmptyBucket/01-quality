@@ -64,7 +64,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MarkdownObjectToTypeParser\MarkdownObjectInterpretator.cs" />
+    <Compile Include="MarkdownObjectToTypeParser\MarkdownTagInterpretator.cs" />
     <Compile Include="MarkdownObjectToTypeParser\MarkdownObjectParser.cs" />
     <Compile Include="MarkdownObj\TextMarkdown.cs" />
     <Compile Include="Markdown\MarkdownConverter.cs" />
@@ -74,7 +74,7 @@
     <Compile Include="MarkdownObj\DocumentMarkdown.cs" />
     <Compile Include="MarkdownObj\IMarkdownObject.cs" />
     <Compile Include="MarkdownObj\ItalicMarkdown.cs" />
-    <Compile Include="MarkdownObj\MarkdownObject.cs" />
+    <Compile Include="MarkdownObj\MarkdownContainer.cs" />
     <Compile Include="MarkdownObj\ParagraphMarkdown.cs" />
     <Compile Include="MarkdownObjectToTypeParser\MarkdownObjectToHTMLParser.cs" />
     <Compile Include="Markdown\RawToMarkdownObjectParser.cs" />

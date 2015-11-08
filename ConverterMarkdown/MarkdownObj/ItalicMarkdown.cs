@@ -1,13 +1,11 @@
-﻿namespace ConverterMarkdown.MarkdownObj
-{
-    public class ItalicMarkdown : MarkdownObject
-    {
-        public ItalicMarkdown() : base()
-        {
-        }
+﻿using System.Collections.Generic;
 
-        public ItalicMarkdown(string content) : base(content)
-        {
-        }
+namespace ConverterMarkdown.MarkdownObj
+{
+    public class ItalicMarkdown : MarkdownContainer
+    {
+        public ItalicMarkdown() : base() { }
+
+        public ItalicMarkdown(IEnumerable<IMarkdownObject> child) : base(child) { }
     }
 }

@@ -30,59 +30,57 @@ namespace ConverterMarkdown.Markdown
                     PatterParagraph
                 };
             string joinMarkdownObjectPatterns = string.Join("|", markdownObjectPatterns);
-            string rootPattern = @"(?!\\)({0})(.*)(?!\\)\1";
+            string rootPattern = @"(?!\\)({0})(.*?)(?!\\)\1";
             string pattern = string.Format(rootPattern, joinMarkdownObjectPatterns);
             mRegMarkdown = new Regex(pattern);
         }
 
-        public DocumentMarkdown Parse(string rawFileStr)
+        public DocumentMarkdown Parse(string rawStr)
         {
-            DocumentMarkdown documentMarkdown = new DocumentMarkdown(rawFileStr);
-            documentMarkdown.Child = ContentParse(documentMarkdown.Content);
+            DocumentMarkdown documentMarkdown = new DocumentMarkdown();
+            documentMarkdown.Child = RawParse(rawStr);
             return documentMarkdown;
         }
 
-        private List<MarkdownObject> ContentParse(string content)
+        public IEnumerable<IMarkdownObject> RawParse(string rawStr)
         {
-            List<MarkdownObject> listMarkdownObject = CurrentLayerParse(content);
-            foreach (var item in listMarkdownObject)
-                item.Child = ContentParse(item.Content);
-            return listMarkdownObject;
-        }
-
-        public List<MarkdownObject> CurrentLayerParse(string rawStr)
-        {
-            List<MarkdownObject> listMarkdownObjectOutLayer = new List<MarkdownObject>();
+            List<IMarkdownObject> listMarkdownObjectOutLayer = new List<IMarkdownObject>();
             Match match = mRegMarkdown.Match(rawStr);
-            int indexStartText = 0;
-            while (match.Success)
+            if (!match.Success)
+                listMarkdownObjectOutLayer.Add(new TextMarkdown(rawStr));
+            else
             {
-                if (match.Index > indexStartText)
+                int indexStartText = 0;
+                while (match.Success)
                 {
-                    int indexEndText = match.Index;
-                    string str = new string(rawStr.Take(indexEndText).Skip(indexStartText).ToArray());
-                    TextMarkdown textMarkdown = new TextMarkdown(str);
-                    listMarkdownObjectOutLayer.Add(textMarkdown);
+                    if (match.Index > indexStartText)
+                    {
+                        int indexEndText = match.Index;
+                        string str = new string(rawStr.Take(indexEndText).Skip(indexStartText).ToArray());
+                        TextMarkdown textMarkdown = new TextMarkdown(str);
+                        listMarkdownObjectOutLayer.Add(textMarkdown);
+                    }
+                    indexStartText = match.Index + match.Length;
+
+                    string contents = match.Groups[2].ToString();
+                    IEnumerable<IMarkdownObject> child = RawParse(contents);
+
+                    string type = match.Groups[1].ToString();
+                    MarkdownContainer markdownObject;
+                    if (type == Italic)
+                        markdownObject = new ItalicMarkdown(child);
+                    else if (type == Bold)
+                        markdownObject = new BoldMarkdown(child);
+                    else if (type == Code)
+                        markdownObject = new CodeMarkdown(child);
+                    else if (type == Paragraph)
+                        markdownObject = new ParagraphMarkdown(child);
+                    else
+                        markdownObject = new MarkdownContainer(child);
+                    listMarkdownObjectOutLayer.Add(markdownObject);
+                    match = match.NextMatch();
                 }
-                indexStartText = match.Index + match.Length;
-
-                string content = match.Groups[2].ToString();
-                string type = match.Groups[1].ToString();
-                MarkdownObject markdownObject;
-                if (type == Italic)
-                    markdownObject = new ItalicMarkdown(content);
-                else if (type == Bold)
-                    markdownObject = new BoldMarkdown(content);
-                else if (type == Code)
-                    markdownObject = new CodeMarkdown(content);
-                else if (type == Paragraph)
-                    markdownObject = new ParagraphMarkdown(content);
-                else
-                    markdownObject = new MarkdownObject(content);
-                listMarkdownObjectOutLayer.Add(markdownObject);
-                match = match.NextMatch();
             }
-
             return listMarkdownObjectOutLayer;
         }
     }

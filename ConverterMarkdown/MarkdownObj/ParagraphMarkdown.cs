@@ -1,13 +1,11 @@
-﻿namespace ConverterMarkdown.MarkdownObj
-{
-    public class ParagraphMarkdown : MarkdownObject
-    {
-        public ParagraphMarkdown() : base()
-        {
-        }
+﻿using System.Collections.Generic;
 
-        public ParagraphMarkdown(string content) : base(content)
-        {
-        }
+namespace ConverterMarkdown.MarkdownObj
+{
+    public class ParagraphMarkdown : MarkdownContainer
+    {
+        public ParagraphMarkdown() : base() { }
+
+        public ParagraphMarkdown(IEnumerable<IMarkdownObject> child) : base(child) { }
     }
 }

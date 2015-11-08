@@ -1,13 +1,17 @@
 ﻿namespace ConverterMarkdown.MarkdownObj
 {
-    public class TextMarkdown : MarkdownObject
+    public class TextMarkdown : IMarkdownObject
     {
-        public TextMarkdown() : base()
+        public string Content { get; set; }
+
+        public TextMarkdown()
         {
+            Content = string.Empty;
         }
 
-        public TextMarkdown(string content) : base(content)
+        public TextMarkdown(string content)
         {
+            Content = content;
         }
     }
 }

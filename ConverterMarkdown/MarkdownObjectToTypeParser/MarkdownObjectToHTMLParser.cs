@@ -4,17 +4,17 @@ namespace ConverterMarkdown.MarkdownObjectToTypeParser
 {
     public class MarkdownObjectToHTMLParser : MarkdownObjectParser
     {
-        public override MarkdownObjectInterpretator InterpretatorBold { get; } = new MarkdownObjectInterpretator(typeof(BoldMarkdown), "<strong>", "</strong>");
+        public override MarkdownTagInterpretator InterpretatorBold { get; } = new MarkdownTagInterpretator(typeof(BoldMarkdown), "<strong>", "</strong>");
 
-        public override MarkdownObjectInterpretator InterpretatorCode { get; } = new MarkdownObjectInterpretator(typeof(CodeMarkdown), "<code>", "</code>");
+        public override MarkdownTagInterpretator InterpretatorCode { get; } = new MarkdownTagInterpretator(typeof(CodeMarkdown), "<code>", "</code>");
 
-        public override MarkdownObjectInterpretator InterpretatorDocument { get; } = new MarkdownObjectInterpretator(typeof(DocumentMarkdown), "<body>", "</body>");
+        public override MarkdownTagInterpretator InterpretatorDocument { get; } = new MarkdownTagInterpretator(typeof(DocumentMarkdown), "<body>", "</body>");
 
-        public override MarkdownObjectInterpretator InterpretatorItalic { get; } = new MarkdownObjectInterpretator(typeof(ItalicMarkdown), "<em>", "</em>");
+        public override MarkdownTagInterpretator InterpretatorItalic { get; } = new MarkdownTagInterpretator(typeof(ItalicMarkdown), "<em>", "</em>");
 
-        public override MarkdownObjectInterpretator InterpretatorParagraph { get; } = new MarkdownObjectInterpretator(typeof(ParagraphMarkdown), "<p>", "/<p>");
+        public override MarkdownTagInterpretator InterpretatorParagraph { get; } = new MarkdownTagInterpretator(typeof(ParagraphMarkdown), "<p>", "/<p>");
 
-        public override MarkdownObjectInterpretator InterpretatorText { get; } = new MarkdownObjectInterpretator(typeof(TextMarkdown));
+        public override MarkdownTagInterpretator InterpretatorText { get; } = new MarkdownTagInterpretator(typeof(TextMarkdown));
 
         public override string Parse(DocumentMarkdown documentMarkdown)
         {
@@ -23,6 +23,6 @@ namespace ConverterMarkdown.MarkdownObjectToTypeParser
             return html;
         }
 
-        public MarkdownObjectToHTMLParser() :base() { }
+        public MarkdownObjectToHTMLParser() : base() { }
     }
 }

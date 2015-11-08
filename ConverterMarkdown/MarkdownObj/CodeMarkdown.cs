@@ -1,13 +1,11 @@
-﻿namespace ConverterMarkdown.MarkdownObj
-{
-    public class CodeMarkdown : MarkdownObject
-    {
-        public CodeMarkdown() : base()
-        {
-        }
+﻿using System.Collections.Generic;
 
-        public CodeMarkdown(string content) : base(content)
-        {
-        }
+namespace ConverterMarkdown.MarkdownObj
+{
+    public class CodeMarkdown : MarkdownContainer
+    {
+        public CodeMarkdown() : base() { }
+
+        public CodeMarkdown(IEnumerable<IMarkdownObject> child) : base(child) { }
     }
 }

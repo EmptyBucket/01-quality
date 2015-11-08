@@ -1,13 +1,7 @@
 ﻿namespace ConverterMarkdown.MarkdownObj
 {
-    public class DocumentMarkdown : MarkdownObject
+    public class DocumentMarkdown : MarkdownContainer
     {
-        public DocumentMarkdown() :base()
-        {
-        }
-
-        public DocumentMarkdown(string content) : base(content)
-        {
-        }
+        public DocumentMarkdown() : base() { }
     }
 }
