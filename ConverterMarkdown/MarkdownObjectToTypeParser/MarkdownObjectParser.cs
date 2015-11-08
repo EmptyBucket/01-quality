@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ConverterMarkdown.MarkdownObj;
 
@@ -45,11 +46,11 @@ namespace ConverterMarkdown.MarkdownObjectToTypeParser
                 MarkdownContainer markdownContainer = (MarkdownContainer)markdownObject;
                 IEnumerable<string> contentsEnumerable = markdownContainer.Child.Select(item => ParseMarkdownObject(item));
                 contents = string.Join("", contentsEnumerable);
+                MarkdownTagInterpretator markdownInterpretator = MarkdownTagInterpretator.GetMarkdownInterpretator(markdownObject.GetType(), mEnumerableMarkdownInterpretator);
+                contents = $"{markdownInterpretator.OpenTag}{Environment.NewLine}{contents}{Environment.NewLine}{markdownInterpretator.CloseTag}{Environment.NewLine}";
             }
-            MarkdownTagInterpretator markdownInterpretator = MarkdownTagInterpretator.GetMarkdownInterpretator(markdownObject.GetType(), mEnumerableMarkdownInterpretator);
-            string currentLayer = $"{markdownInterpretator.OpenTag}{contents}{markdownInterpretator.CloseTag}";
 
-            return currentLayer;
+            return contents;
         }
     }
 }

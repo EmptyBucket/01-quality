@@ -1,4 +1,5 @@
-﻿using ConverterMarkdown.MarkdownObj;
+﻿using System;
+using ConverterMarkdown.MarkdownObj;
 
 namespace ConverterMarkdown.MarkdownObjectToTypeParser
 {
@@ -12,14 +13,14 @@ namespace ConverterMarkdown.MarkdownObjectToTypeParser
 
         public override MarkdownTagInterpretator InterpretatorItalic { get; } = new MarkdownTagInterpretator(typeof(ItalicMarkdown), "<em>", "</em>");
 
-        public override MarkdownTagInterpretator InterpretatorParagraph { get; } = new MarkdownTagInterpretator(typeof(ParagraphMarkdown), "<p>", "/<p>");
+        public override MarkdownTagInterpretator InterpretatorParagraph { get; } = new MarkdownTagInterpretator(typeof(ParagraphMarkdown), "<p>", "</p>");
 
         public override MarkdownTagInterpretator InterpretatorText { get; } = new MarkdownTagInterpretator(typeof(TextMarkdown));
 
         public override string Parse(DocumentMarkdown documentMarkdown)
         {
             string htmlBody = base.Parse(documentMarkdown);
-            string html = $"<!DOCTYPE html><html><head></head>{htmlBody}</html>";
+            string html = $"<!DOCTYPE html>{Environment.NewLine}<html>{Environment.NewLine}{htmlBody}{Environment.NewLine}</html>";
             return html;
         }
 

@@ -27,7 +27,7 @@ namespace ConverterMarkdown.Markdown
                     PatternCode
                 };
             string joinMarkdownObjectPatterns = string.Join("|", markdownObjectPatterns);
-            string rootPattern = @"(?!\\)({0})(.*?)(?!\\)\1";
+            string rootPattern = @"(?:[^\\]|^)({0})(.*?)(?!\\)\1";
             string pattern = string.Format(rootPattern, joinMarkdownObjectPatterns);
             mRegMarkdown = new Regex(pattern);
         }
