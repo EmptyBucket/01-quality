@@ -70,6 +70,39 @@ namespace ConverterMarkdown.Markdown
             return minMatch;
         }
 
+        private TextMarkdown GetTextBeforeFound(Match match, string currentStr)
+        {
+            string str = new string(currentStr.Take(match.Index).ToArray());
+            TextMarkdown textMarkdown = new TextMarkdown(str);
+            return textMarkdown;
+        }
+
+        public IMarkdownObject GetTypedMarkdownObject(string type, string contents)
+        {
+            MarkdownContainer markdownObject;
+            switch (type)
+            {
+                case Code:
+                    TextMarkdown text = new TextMarkdown(contents);
+                    IEnumerable<IMarkdownObject> childCode = new List<IMarkdownObject>()
+                    {
+                        text
+                    };
+                    markdownObject = new CodeMarkdown(childCode);
+                    break;
+                case Italic:
+                    markdownObject = new ItalicMarkdown(RawParse(contents));
+                    break;
+                case Bold:
+                    markdownObject = new BoldMarkdown(RawParse(contents));
+                    break;
+                default:
+                    markdownObject = new MarkdownContainer(RawParse(contents));
+                    break;
+            }
+            return markdownObject;
+        }
+
         public IEnumerable<IMarkdownObject> RawParse(string rawStr)
         {
             List<IMarkdownObject> listMarkdownObjectOutLayer = new List<IMarkdownObject>();
@@ -80,46 +113,17 @@ namespace ConverterMarkdown.Markdown
                 listMarkdownObjectOutLayer.Add(new TextMarkdown(rawStr));
             else
             {
-                int indexStartText = 0;
-
                 while(match.Success)
                 {
-                    if (match.Index > indexStartText)
-                    {
-                        int indexEndText = match.Index;
-                        string str = new string(rawStr.Take(indexEndText).Skip(indexStartText).ToArray());
-                        TextMarkdown textMarkdown = new TextMarkdown(str);
-                        listMarkdownObjectOutLayer.Add(textMarkdown);
-                    }
+                    if (match.Index > 0)
+                        listMarkdownObjectOutLayer.Add(GetTextBeforeFound(match, currentStr));
 
                     string contents = match.Groups[2].ToString();
-
                     string type = match.Groups[1].ToString();
-                    MarkdownContainer markdownObject;
-                    switch (type)
-                    {
-                        case Code:
-                            TextMarkdown text = new TextMarkdown(contents);
-                            IEnumerable<IMarkdownObject> childCode = new List<IMarkdownObject>()
-                            {
-                                text
-                            };
-                            markdownObject = new CodeMarkdown(childCode);
-                            break;
-                        case Italic:
-                            markdownObject = new ItalicMarkdown(RawParse(contents));
-                            break;
-                        case Bold:
-                            markdownObject = new BoldMarkdown(RawParse(contents));
-                            break;
-                        default:
-                            markdownObject = new MarkdownContainer(RawParse(contents));
-                            break;
-                    }
+                    IMarkdownObject markdownObject = GetTypedMarkdownObject(type, contents);                   
                     listMarkdownObjectOutLayer.Add(markdownObject);
 
-                    indexStartText = match.Index + match.Length;
-                    currentStr = new string(rawStr.Skip(indexStartText).ToArray());
+                    currentStr = new string(rawStr.Skip(match.Index + match.Length).ToArray());
                     match = FirstFoundSearchPattern(currentStr, mRegArray);
                     if(!match.Success)
                     {

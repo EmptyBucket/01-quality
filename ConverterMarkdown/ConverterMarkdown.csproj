@@ -78,7 +78,6 @@
     <Compile Include="MarkdownObj\ParagraphMarkdown.cs" />
     <Compile Include="MarkdownObjectToTypeParser\MarkdownObjectToHTMLParser.cs" />
     <Compile Include="Markdown\RawToMarkdownObjectParser.cs" />
-    <Compile Include="MatchIndexComparer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
