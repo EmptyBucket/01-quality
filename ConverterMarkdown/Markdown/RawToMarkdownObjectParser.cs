@@ -11,12 +11,10 @@ namespace ConverterMarkdown.Markdown
         private readonly string PatternItalic = @"(?:_(?!\d))";
         private readonly string PatterBold = "(?:__)";
         private readonly string PatternCode = "(?:`)";
-        private readonly string PatterParagraph = $@"(?:{Environment.NewLine})\s*{Environment.NewLine}";
 
-        private readonly string Italic = "_";
-        private readonly string Bold = "__";
-        private readonly string Code = "`";
-        private readonly string Paragraph = Environment.NewLine;
+        private const string Italic = "_";
+        private const string Bold = "__";
+        private const string Code = "`";
 
         private readonly Regex mRegMarkdown;
 
@@ -26,8 +24,7 @@ namespace ConverterMarkdown.Markdown
                 {
                     PatterBold,
                     PatternItalic,
-                    PatternCode,
-                    PatterParagraph
+                    PatternCode
                 };
             string joinMarkdownObjectPatterns = string.Join("|", markdownObjectPatterns);
             string rootPattern = @"(?!\\)({0})(.*?)(?!\\)\1";
@@ -37,9 +34,24 @@ namespace ConverterMarkdown.Markdown
 
         public DocumentMarkdown Parse(string rawStr)
         {
-            DocumentMarkdown documentMarkdown = new DocumentMarkdown();
-            documentMarkdown.Child = RawParse(rawStr);
+            IEnumerable<ParagraphMarkdown> paragraphs = ParagraphParse(rawStr);
+            DocumentMarkdown documentMarkdown = new DocumentMarkdown(paragraphs);
             return documentMarkdown;
+        }
+
+        public IEnumerable<ParagraphMarkdown> ParagraphParse(string rawStr)
+        {
+            List<ParagraphMarkdown> markdownParagraphEnumerable = new List<ParagraphMarkdown>();
+            string patternParagraph = $@"{Environment.NewLine}\s*{Environment.NewLine}";
+            Regex regParagraph = new Regex(patternParagraph);
+            string[] paragraphs = regParagraph.Split(rawStr);
+            foreach (var item in paragraphs)
+            {
+                IEnumerable<IMarkdownObject> child = RawParse(item);
+                ParagraphMarkdown paragraphMarkdown = new ParagraphMarkdown(child);
+                markdownParagraphEnumerable.Add(paragraphMarkdown);
+            }
+            return markdownParagraphEnumerable;
         }
 
         public IEnumerable<IMarkdownObject> RawParse(string rawStr)
@@ -67,16 +79,21 @@ namespace ConverterMarkdown.Markdown
 
                     string type = match.Groups[1].ToString();
                     MarkdownContainer markdownObject;
-                    if (type == Italic)
-                        markdownObject = new ItalicMarkdown(child);
-                    else if (type == Bold)
-                        markdownObject = new BoldMarkdown(child);
-                    else if (type == Code)
-                        markdownObject = new CodeMarkdown(child);
-                    else if (type == Paragraph)
-                        markdownObject = new ParagraphMarkdown(child);
-                    else
-                        markdownObject = new MarkdownContainer(child);
+                    switch (type)
+                    {
+                        case Italic:
+                            markdownObject = new ItalicMarkdown(child);
+                            break;
+                        case Bold:
+                            markdownObject = new BoldMarkdown(child);
+                            break;
+                        case Code:
+                            markdownObject = new CodeMarkdown(child);
+                            break;
+                        default:
+                            markdownObject = new MarkdownContainer(child);
+                            break;
+                    }
                     listMarkdownObjectOutLayer.Add(markdownObject);
                     match = match.NextMatch();
                 }
