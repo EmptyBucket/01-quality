@@ -4,9 +4,12 @@ namespace ConverterMarkdown.MarkdownObj
 {
     public class MarkdownContainer : IMarkdownObject
     {
-        public IEnumerable<IMarkdownObject> Child { get; set; } = new List<IMarkdownObject>();
+        public IEnumerable<IMarkdownObject> Child { get; }
 
-        public MarkdownContainer() { }
+        public MarkdownContainer()
+        {
+            Child = new List<IMarkdownObject>();
+        }
 
         public MarkdownContainer(IEnumerable<IMarkdownObject> child)
         {

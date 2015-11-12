@@ -2,7 +2,7 @@
 {
     public class TextMarkdown : IMarkdownObject
     {
-        public string Content { get; set; }
+        public string Content { get; }
 
         public TextMarkdown()
         {
