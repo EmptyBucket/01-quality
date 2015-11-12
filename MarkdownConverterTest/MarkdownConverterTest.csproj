@@ -53,18 +53,13 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RawToMarkdownObjectParserTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConverterMarkdown\ConverterMarkdown.csproj">
       <Project>{35e63be9-7e08-4574-974d-60506019786a}</Project>
       <Name>ConverterMarkdown</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MarkdownText.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\HTMLText.html" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

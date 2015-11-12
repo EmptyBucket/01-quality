@@ -39,7 +39,7 @@ namespace ConverterMarkdown.Markdown
             return documentMarkdown;
         }
 
-        public IEnumerable<ParagraphMarkdown> ParagraphParse(string rawStr)
+        private IEnumerable<ParagraphMarkdown> ParagraphParse(string rawStr)
         {
             List<ParagraphMarkdown> markdownParagraphEnumerable = new List<ParagraphMarkdown>();
             string patternParagraph = $@"{Environment.NewLine}\s*{Environment.NewLine}";
@@ -77,7 +77,7 @@ namespace ConverterMarkdown.Markdown
             return textMarkdown;
         }
 
-        public IMarkdownObject GetTypedMarkdownObject(string type, string contents)
+        private IMarkdownObject GetTypedMarkdownObject(string type, string contents)
         {
             MarkdownContainer markdownObject;
             switch (type)
@@ -103,7 +103,7 @@ namespace ConverterMarkdown.Markdown
             return markdownObject;
         }
 
-        public IEnumerable<IMarkdownObject> RawParse(string rawStr)
+        private IEnumerable<IMarkdownObject> RawParse(string rawStr)
         {
             List<IMarkdownObject> listMarkdownObjectOutLayer = new List<IMarkdownObject>();
 
@@ -123,9 +123,9 @@ namespace ConverterMarkdown.Markdown
                     IMarkdownObject markdownObject = GetTypedMarkdownObject(type, contents);                   
                     listMarkdownObjectOutLayer.Add(markdownObject);
 
-                    currentStr = new string(rawStr.Skip(match.Index + match.Length).ToArray());
+                    currentStr = new string(currentStr.Skip(match.Index + match.Length).ToArray());
                     match = FirstFoundSearchPattern(currentStr, mRegArray);
-                    if(!match.Success)
+                    if(!match.Success && currentStr != string.Empty)
                     {
                         TextMarkdown textMarkdown = new TextMarkdown(currentStr);
                         listMarkdownObjectOutLayer.Add(textMarkdown);
