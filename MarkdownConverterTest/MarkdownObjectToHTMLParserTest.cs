@@ -6,18 +6,24 @@ using ConverterMarkdown.MarkdownObjectToTypeParser;
 namespace MarkdownConverterTest
 {
     [TestClass]
-    public class MarkdownObjectToHTMLParserTest
+    public class MarkdownObjectToHTMLparserTest
     {
+        private MarkdownObjectToHTMLParser mMarkdownObjectToHTMLparser;
+
+        public MarkdownObjectToHTMLparserTest()
+        {
+            mMarkdownObjectToHTMLparser = new MarkdownObjectToHTMLParser();
+        }
+
         [TestMethod]
         public void MarkdownObjectParagraph_Parse_HTMLParagraph()
         {
             ParagraphMarkdown paragraphMarkdown = new ParagraphMarkdown();
             DocumentMarkdown documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
-            MarkdownObjectToHTMLParser markdownObjectToHTMLparser = new MarkdownObjectToHTMLParser();
-            string html = markdownObjectToHTMLparser.Parse(documentMarkdown);
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorParagraph.OpenTag));
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorParagraph.CloseTag));
-            Assert.IsTrue(html.IndexOf(markdownObjectToHTMLparser.InterpretatorParagraph.OpenTag) < html.IndexOf(markdownObjectToHTMLparser.InterpretatorParagraph.CloseTag));
+            string html = mMarkdownObjectToHTMLparser.Parse(documentMarkdown);
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorParagraph.OpenTag));
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorParagraph.CloseTag));
+            Assert.IsTrue(html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorParagraph.OpenTag) < html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorParagraph.CloseTag));
         }
 
         [TestMethod]
@@ -26,11 +32,10 @@ namespace MarkdownConverterTest
             ItalicMarkdown italicMarkdown = new ItalicMarkdown();
             ParagraphMarkdown paragraphMarkdown = new ParagraphMarkdown(new List<IMarkdownObject> { italicMarkdown });
             DocumentMarkdown documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
-            MarkdownObjectToHTMLParser markdownObjectToHTMLparser = new MarkdownObjectToHTMLParser();
-            string html = markdownObjectToHTMLparser.Parse(documentMarkdown);
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorItalic.OpenTag));
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorItalic.CloseTag));
-            Assert.IsTrue(html.IndexOf(markdownObjectToHTMLparser.InterpretatorItalic.OpenTag) < html.IndexOf(markdownObjectToHTMLparser.InterpretatorItalic.CloseTag));
+            string html = mMarkdownObjectToHTMLparser.Parse(documentMarkdown);
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorItalic.OpenTag));
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorItalic.CloseTag));
+            Assert.IsTrue(html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorItalic.OpenTag) < html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorItalic.CloseTag));
         }
 
         [TestMethod]
@@ -39,11 +44,10 @@ namespace MarkdownConverterTest
             BoldMarkdown italicMarkdown = new BoldMarkdown();
             ParagraphMarkdown paragraphMarkdown = new ParagraphMarkdown(new List<IMarkdownObject> { italicMarkdown });
             DocumentMarkdown documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
-            MarkdownObjectToHTMLParser markdownObjectToHTMLparser = new MarkdownObjectToHTMLParser();
-            string html = markdownObjectToHTMLparser.Parse(documentMarkdown);
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorBold.OpenTag));
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorBold.CloseTag));
-            Assert.IsTrue(html.IndexOf(markdownObjectToHTMLparser.InterpretatorBold.OpenTag) < html.IndexOf(markdownObjectToHTMLparser.InterpretatorBold.CloseTag));
+            string html = mMarkdownObjectToHTMLparser.Parse(documentMarkdown);
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorBold.OpenTag));
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorBold.CloseTag));
+            Assert.IsTrue(html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorBold.OpenTag) < html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorBold.CloseTag));
         }
 
         [TestMethod]
@@ -52,22 +56,20 @@ namespace MarkdownConverterTest
             CodeMarkdown italicMarkdown = new CodeMarkdown();
             ParagraphMarkdown paragraphMarkdown = new ParagraphMarkdown(new List<IMarkdownObject> { italicMarkdown });
             DocumentMarkdown documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
-            MarkdownObjectToHTMLParser markdownObjectToHTMLparser = new MarkdownObjectToHTMLParser();
-            string html = markdownObjectToHTMLparser.Parse(documentMarkdown);
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorCode.OpenTag));
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorCode.CloseTag));
-            Assert.IsTrue(html.IndexOf(markdownObjectToHTMLparser.InterpretatorCode.OpenTag) < html.IndexOf(markdownObjectToHTMLparser.InterpretatorCode.CloseTag));
+            string html = mMarkdownObjectToHTMLparser.Parse(documentMarkdown);
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorCode.OpenTag));
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorCode.CloseTag));
+            Assert.IsTrue(html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorCode.OpenTag) < html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorCode.CloseTag));
         }
 
         [TestMethod]
         public void MarkdownObjectDocument_Parse_HTMLBody()
         {
             DocumentMarkdown documentMarkdown = new DocumentMarkdown();
-            MarkdownObjectToHTMLParser markdownObjectToHTMLparser = new MarkdownObjectToHTMLParser();
-            string html = markdownObjectToHTMLparser.Parse(documentMarkdown);
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorDocument.OpenTag));
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorDocument.CloseTag));
-            Assert.IsTrue(html.IndexOf(markdownObjectToHTMLparser.InterpretatorDocument.OpenTag) < html.IndexOf(markdownObjectToHTMLparser.InterpretatorDocument.CloseTag));
+            string html = mMarkdownObjectToHTMLparser.Parse(documentMarkdown);
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorDocument.OpenTag));
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorDocument.CloseTag));
+            Assert.IsTrue(html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorDocument.OpenTag) < html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorDocument.CloseTag));
         }
 
         [TestMethod]
@@ -78,26 +80,25 @@ namespace MarkdownConverterTest
             CodeMarkdown codeMarkdown = new CodeMarkdown();
             ParagraphMarkdown paragraphMarkdown = new ParagraphMarkdown(new List<IMarkdownObject> { italicMarkdown, boldMarkdown, codeMarkdown });
             DocumentMarkdown documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
-            MarkdownObjectToHTMLParser markdownObjectToHTMLparser = new MarkdownObjectToHTMLParser();
-            string html = markdownObjectToHTMLparser.Parse(documentMarkdown);
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorParagraph.OpenTag));
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorParagraph.CloseTag));
-            Assert.IsTrue(html.IndexOf(markdownObjectToHTMLparser.InterpretatorParagraph.OpenTag) < html.IndexOf(markdownObjectToHTMLparser.InterpretatorParagraph.CloseTag));
+            string html = mMarkdownObjectToHTMLparser.Parse(documentMarkdown);
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorParagraph.OpenTag));
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorParagraph.CloseTag));
+            Assert.IsTrue(html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorParagraph.OpenTag) < html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorParagraph.CloseTag));
 
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorItalic.OpenTag));
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorItalic.CloseTag));
-            Assert.IsTrue(html.IndexOf(markdownObjectToHTMLparser.InterpretatorItalic.OpenTag) < html.IndexOf(markdownObjectToHTMLparser.InterpretatorItalic.CloseTag));
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorItalic.OpenTag));
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorItalic.CloseTag));
+            Assert.IsTrue(html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorItalic.OpenTag) < html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorItalic.CloseTag));
 
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorBold.OpenTag));
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorBold.CloseTag));
-            Assert.IsTrue(html.IndexOf(markdownObjectToHTMLparser.InterpretatorBold.OpenTag) < html.IndexOf(markdownObjectToHTMLparser.InterpretatorBold.CloseTag));
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorBold.OpenTag));
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorBold.CloseTag));
+            Assert.IsTrue(html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorBold.OpenTag) < html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorBold.CloseTag));
 
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorCode.OpenTag));
-            Assert.IsTrue(html.Contains(markdownObjectToHTMLparser.InterpretatorCode.CloseTag));
-            Assert.IsTrue(html.IndexOf(markdownObjectToHTMLparser.InterpretatorCode.OpenTag) < html.IndexOf(markdownObjectToHTMLparser.InterpretatorCode.CloseTag));
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorCode.OpenTag));
+            Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorCode.CloseTag));
+            Assert.IsTrue(html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorCode.OpenTag) < html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorCode.CloseTag));
 
-            Assert.IsTrue(html.IndexOf(markdownObjectToHTMLparser.InterpretatorItalic.CloseTag) < html.IndexOf(markdownObjectToHTMLparser.InterpretatorBold.OpenTag));
-            Assert.IsTrue(html.IndexOf(markdownObjectToHTMLparser.InterpretatorBold.CloseTag) < html.IndexOf(markdownObjectToHTMLparser.InterpretatorCode.OpenTag));
+            Assert.IsTrue(html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorItalic.CloseTag) < html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorBold.OpenTag));
+            Assert.IsTrue(html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorBold.CloseTag) < html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorCode.OpenTag));
         }
 
         [TestMethod]
@@ -107,12 +108,11 @@ namespace MarkdownConverterTest
             ItalicMarkdown italicMarkdown = new ItalicMarkdown(new List<IMarkdownObject> { boldMarkdown });
             ParagraphMarkdown paragraphMarkdown = new ParagraphMarkdown(new List<IMarkdownObject> { italicMarkdown });
             DocumentMarkdown documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
-            MarkdownObjectToHTMLParser markdownObjectToHTMLparser = new MarkdownObjectToHTMLParser();
-            string html = markdownObjectToHTMLparser.Parse(documentMarkdown);
+            string html = mMarkdownObjectToHTMLparser.Parse(documentMarkdown);
 
-            Assert.IsTrue(html.IndexOf(markdownObjectToHTMLparser.InterpretatorItalic.OpenTag) < html.IndexOf(markdownObjectToHTMLparser.InterpretatorItalic.CloseTag));
-            Assert.IsTrue(html.IndexOf(markdownObjectToHTMLparser.InterpretatorBold.OpenTag) < html.IndexOf(markdownObjectToHTMLparser.InterpretatorBold.CloseTag));
-            Assert.IsTrue(html.IndexOf(markdownObjectToHTMLparser.InterpretatorItalic.OpenTag) < html.IndexOf(markdownObjectToHTMLparser.InterpretatorBold.OpenTag) && html.IndexOf(markdownObjectToHTMLparser.InterpretatorItalic.CloseTag) > html.IndexOf(markdownObjectToHTMLparser.InterpretatorBold.CloseTag));
+            Assert.IsTrue(html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorItalic.OpenTag) < html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorItalic.CloseTag));
+            Assert.IsTrue(html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorBold.OpenTag) < html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorBold.CloseTag));
+            Assert.IsTrue(html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorItalic.OpenTag) < html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorBold.OpenTag) && html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorItalic.CloseTag) > html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorBold.CloseTag));
         }
     }
 }

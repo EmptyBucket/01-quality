@@ -8,13 +8,19 @@ namespace MarkdownConverterTest
     [TestClass]
     public class RawToMarkdownObjectParserTest
     {
+        private RawToMarkdownObjectParser mRawToMarkdownObjectParser;
+
+        public RawToMarkdownObjectParserTest()
+        {
+            mRawToMarkdownObjectParser = new RawToMarkdownObjectParser();
+        }
+
         [TestMethod]
         public void RawParagraph_Parse_ParagraphMarkdown()
         {
             string content = "";
             string raw = content;
-            RawToMarkdownObjectParser rawToMarkdownObjectParser = new RawToMarkdownObjectParser();
-            DocumentMarkdown documentMarkdown = rawToMarkdownObjectParser.Parse(raw);
+            DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject paragraph = documentMarkdown.Child.First();
             Assert.IsInstanceOfType(paragraph, typeof(ParagraphMarkdown));
         }
@@ -24,8 +30,7 @@ namespace MarkdownConverterTest
         {
             string content = "content";
             string raw = $"_{content}_";
-            RawToMarkdownObjectParser rawToMarkdownObjectParser = new RawToMarkdownObjectParser();
-            DocumentMarkdown documentMarkdown = rawToMarkdownObjectParser.Parse(raw);
+            DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             ParagraphMarkdown paragraph = (ParagraphMarkdown)documentMarkdown.Child.First();
             IMarkdownObject child = paragraph.Child.First();
             Assert.IsInstanceOfType(child, typeof(ItalicMarkdown));
@@ -36,8 +41,7 @@ namespace MarkdownConverterTest
         {
             string content = "content";
             string raw = $"_{content}_";
-            RawToMarkdownObjectParser rawToMarkdownObjectParser = new RawToMarkdownObjectParser();
-            DocumentMarkdown documentMarkdown = rawToMarkdownObjectParser.Parse(raw);
+            DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             ParagraphMarkdown paragraph = (ParagraphMarkdown)documentMarkdown.Child.First();
             IMarkdownObject child = paragraph.Child.First();
             TextMarkdown textMarkdown = (TextMarkdown)((ItalicMarkdown)child).Child.First();
@@ -49,8 +53,7 @@ namespace MarkdownConverterTest
         {
             string content = "content";
             string raw = $"__{content}__";
-            RawToMarkdownObjectParser rawToMarkdownObjectParser = new RawToMarkdownObjectParser();
-            DocumentMarkdown documentMarkdown = rawToMarkdownObjectParser.Parse(raw);
+            DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             ParagraphMarkdown paragraph = (ParagraphMarkdown)documentMarkdown.Child.First();
             IMarkdownObject child = paragraph.Child.First();
             Assert.IsInstanceOfType(child, typeof(BoldMarkdown));
@@ -61,8 +64,7 @@ namespace MarkdownConverterTest
         {
             string content = "content";
             string raw = $"__{content}__";
-            RawToMarkdownObjectParser rawToMarkdownObjectParser = new RawToMarkdownObjectParser();
-            DocumentMarkdown documentMarkdown = rawToMarkdownObjectParser.Parse(raw);
+            DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             ParagraphMarkdown paragraph = (ParagraphMarkdown)documentMarkdown.Child.First();
             IMarkdownObject child = paragraph.Child.First();
             TextMarkdown textMarkdown = (TextMarkdown)((BoldMarkdown)child).Child.First();
@@ -74,8 +76,7 @@ namespace MarkdownConverterTest
         {
             string content = "content";
             string raw = $"`{content}`";
-            RawToMarkdownObjectParser rawToMarkdownObjectParser = new RawToMarkdownObjectParser();
-            DocumentMarkdown documentMarkdown = rawToMarkdownObjectParser.Parse(raw);
+            DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             ParagraphMarkdown paragraph = (ParagraphMarkdown)documentMarkdown.Child.First();
             IMarkdownObject child = paragraph.Child.First();
             Assert.IsInstanceOfType(child, typeof(CodeMarkdown));
@@ -86,8 +87,7 @@ namespace MarkdownConverterTest
         {
             string content = "content";
             string raw = $"`{content}`";
-            RawToMarkdownObjectParser rawToMarkdownObjectParser = new RawToMarkdownObjectParser();
-            DocumentMarkdown documentMarkdown = rawToMarkdownObjectParser.Parse(raw);
+            DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             ParagraphMarkdown paragraph = (ParagraphMarkdown)documentMarkdown.Child.First();
             IMarkdownObject child = paragraph.Child.First();
             TextMarkdown textMarkdown = (TextMarkdown)((CodeMarkdown)child).Child.First();
@@ -101,8 +101,7 @@ namespace MarkdownConverterTest
             string boldContent = "bold";
             string codeContent = "code";
             string raw = $"_{italicContent}_ __{boldContent}__ `{codeContent}`";
-            RawToMarkdownObjectParser rawMarkdownParser = new RawToMarkdownObjectParser();
-            DocumentMarkdown documentMarkdown = rawMarkdownParser.Parse(raw);
+            DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject documentChildParagraph = documentMarkdown.Child.ToArray()[0];
             IMarkdownObject childParagraphItalic = ((ParagraphMarkdown)documentChildParagraph).Child.ToArray()[0];
             IMarkdownObject childParagraphBold = ((ParagraphMarkdown)documentChildParagraph).Child.ToArray()[1];
@@ -118,8 +117,7 @@ namespace MarkdownConverterTest
         {
             string content = "content";
             string raw = $"_ __{content}__ _";
-            RawToMarkdownObjectParser rawMarkdownParser = new RawToMarkdownObjectParser();
-            DocumentMarkdown documentMarkdown = rawMarkdownParser.Parse(raw);
+            DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject documentChildParagraph = documentMarkdown.Child.ToArray()[0];
             IMarkdownObject childParagraphItalic = ((ParagraphMarkdown)documentChildParagraph).Child.ToArray()[0];
             IMarkdownObject childItalicBold = ((ItalicMarkdown)childParagraphItalic).Child.ToArray()[0];
@@ -133,8 +131,7 @@ namespace MarkdownConverterTest
         {
             string content = "content";
             string raw = $"` __{content}__ `";
-            RawToMarkdownObjectParser rawMarkdownParser = new RawToMarkdownObjectParser();
-            DocumentMarkdown documentMarkdown = rawMarkdownParser.Parse(raw);
+            DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject documentChildParagraph = documentMarkdown.Child.ToArray()[0];
             IMarkdownObject childParagraphCode = ((ParagraphMarkdown)documentChildParagraph).Child.ToArray()[0];
             IMarkdownObject childItalicText = ((CodeMarkdown)childParagraphCode).Child.ToArray()[0];
@@ -148,8 +145,7 @@ namespace MarkdownConverterTest
         {
             string content = "italic";
             string raw = $@"\_{content}\_";
-            RawToMarkdownObjectParser rawMarkdownParser = new RawToMarkdownObjectParser();
-            DocumentMarkdown documentMarkdown = rawMarkdownParser.Parse(raw);
+            DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject documentChildParagraph = documentMarkdown.Child.ToArray()[0];
             IMarkdownObject childParagraphText = ((ParagraphMarkdown)documentChildParagraph).Child.ToArray()[0];
             Assert.IsInstanceOfType(documentChildParagraph, typeof(ParagraphMarkdown));
@@ -161,8 +157,7 @@ namespace MarkdownConverterTest
         {
             string content = "bold";
             string raw = $@"\__{content}\__";
-            RawToMarkdownObjectParser rawMarkdownParser = new RawToMarkdownObjectParser();
-            DocumentMarkdown documentMarkdown = rawMarkdownParser.Parse(raw);
+            DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject documentChildParagraph = documentMarkdown.Child.ToArray()[0];
             IMarkdownObject childParagraphText = ((ParagraphMarkdown)documentChildParagraph).Child.ToArray()[0];
             Assert.IsInstanceOfType(documentChildParagraph, typeof(ParagraphMarkdown));
@@ -174,8 +169,7 @@ namespace MarkdownConverterTest
         {
             string content = "code";
             string raw = $@"\`{content}\`";
-            RawToMarkdownObjectParser rawMarkdownParser = new RawToMarkdownObjectParser();
-            DocumentMarkdown documentMarkdown = rawMarkdownParser.Parse(raw);
+            DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject documentChildParagraph = documentMarkdown.Child.ToArray()[0];
             IMarkdownObject childParagraphText = ((ParagraphMarkdown)documentChildParagraph).Child.ToArray()[0];
             Assert.IsInstanceOfType(documentChildParagraph, typeof(ParagraphMarkdown));
@@ -187,8 +181,7 @@ namespace MarkdownConverterTest
         {
             string content = "_12_3";
             string raw = $"{content}";
-            RawToMarkdownObjectParser rawMarkdownParser = new RawToMarkdownObjectParser();
-            DocumentMarkdown documentMarkdown = rawMarkdownParser.Parse(raw);
+            DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject documentChildParagraph = documentMarkdown.Child.ToArray()[0];
             IMarkdownObject childParagraphText = ((ParagraphMarkdown)documentChildParagraph).Child.ToArray()[0];
             Assert.IsInstanceOfType(documentChildParagraph, typeof(ParagraphMarkdown));
@@ -200,8 +193,7 @@ namespace MarkdownConverterTest
         {
             string content = "__непарные _символы не считаются `выделением";
             string raw = $"{content}";
-            RawToMarkdownObjectParser rawMarkdownParser = new RawToMarkdownObjectParser();
-            DocumentMarkdown documentMarkdown = rawMarkdownParser.Parse(raw);
+            DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject documentChildParagraph = documentMarkdown.Child.ToArray()[0];
             IMarkdownObject childParagraphText = ((ParagraphMarkdown)documentChildParagraph).Child.ToArray()[0];
             Assert.IsInstanceOfType(documentChildParagraph, typeof(ParagraphMarkdown));
