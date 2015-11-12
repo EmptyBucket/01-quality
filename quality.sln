@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patterns", "Patterns\Patter
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConverterMarkdown", "ConverterMarkdown\ConverterMarkdown.csproj", "{35E63BE9-7E08-4574-974D-60506019786A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkdownConverterTest", "MarkdownConverterTest\MarkdownConverterTest.csproj", "{2FC72850-0751-421A-BD2B-4C31081C94FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConverterMarkdownText", "MarkdownConverterTest\ConverterMarkdownText.csproj", "{2FC72850-0751-421A-BD2B-4C31081C94FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
