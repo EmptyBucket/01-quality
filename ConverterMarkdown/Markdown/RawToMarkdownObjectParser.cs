@@ -35,20 +35,20 @@ namespace ConverterMarkdown.Markdown
         public DocumentMarkdown Parse(string rawStr)
         {
             IEnumerable<ParagraphMarkdown> paragraphs = ParagraphParse(rawStr);
-            DocumentMarkdown documentMarkdown = new DocumentMarkdown(paragraphs);
+            var documentMarkdown = new DocumentMarkdown(paragraphs);
             return documentMarkdown;
         }
 
         private IEnumerable<ParagraphMarkdown> ParagraphParse(string rawStr)
         {
-            List<ParagraphMarkdown> markdownParagraphEnumerable = new List<ParagraphMarkdown>();
+            var markdownParagraphEnumerable = new List<ParagraphMarkdown>();
             string patternParagraph = $@"{Environment.NewLine}\s*{Environment.NewLine}";
-            Regex regParagraph = new Regex(patternParagraph);
+            var regParagraph = new Regex(patternParagraph);
             string[] paragraphs = regParagraph.Split(rawStr);
             foreach (var item in paragraphs)
             {
                 IEnumerable<IMarkdownObject> child = RawParse(item);
-                ParagraphMarkdown paragraphMarkdown = new ParagraphMarkdown(child);
+                var paragraphMarkdown = new ParagraphMarkdown(child);
                 markdownParagraphEnumerable.Add(paragraphMarkdown);
             }
             return markdownParagraphEnumerable;
@@ -72,8 +72,8 @@ namespace ConverterMarkdown.Markdown
 
         private TextMarkdown GetTextBeforeFound(Match match, string currentStr)
         {
-            string str = new string(currentStr.Take(match.Index).ToArray());
-            TextMarkdown textMarkdown = new TextMarkdown(str);
+            var str = new string(currentStr.Take(match.Index).ToArray());
+            var textMarkdown = new TextMarkdown(str);
             return textMarkdown;
         }
 
@@ -84,7 +84,7 @@ namespace ConverterMarkdown.Markdown
             {
                 case Code:
                     TextMarkdown text = new TextMarkdown(contents);
-                    IEnumerable<IMarkdownObject> childCode = new List<IMarkdownObject>()
+                    var childCode = new List<IMarkdownObject>()
                     {
                         text
                     };
@@ -105,7 +105,7 @@ namespace ConverterMarkdown.Markdown
 
         private IEnumerable<IMarkdownObject> RawParse(string rawStr)
         {
-            List<IMarkdownObject> listMarkdownObjectOutLayer = new List<IMarkdownObject>();
+            var listMarkdownObjectOutLayer = new List<IMarkdownObject>();
 
             string currentStr = rawStr;
             Match match = FirstFoundSearchPattern(currentStr, mRegArray);
@@ -127,7 +127,7 @@ namespace ConverterMarkdown.Markdown
                     match = FirstFoundSearchPattern(currentStr, mRegArray);
                     if(!match.Success && currentStr != string.Empty)
                     {
-                        TextMarkdown textMarkdown = new TextMarkdown(currentStr);
+                        var textMarkdown = new TextMarkdown(currentStr);
                         listMarkdownObjectOutLayer.Add(textMarkdown);
                     }
                 }

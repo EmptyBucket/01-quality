@@ -18,8 +18,8 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void RawParagraph_Parse_ParagraphMarkdown()
         {
-            string content = "";
-            string raw = content;
+            var content = string.Empty;
+            var raw = content;
             DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject paragraph = documentMarkdown.Child.First();
             Assert.IsInstanceOfType(paragraph, typeof(ParagraphMarkdown));
@@ -28,8 +28,8 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void RawItalic_Parse_TypeItalic()
         {
-            string content = "content";
-            string raw = $"_{content}_";
+            var content = "content";
+            var raw = $"_{content}_";
             DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             ParagraphMarkdown paragraph = (ParagraphMarkdown)documentMarkdown.Child.First();
             IMarkdownObject child = paragraph.Child.First();
@@ -39,8 +39,8 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void RawItalic_Parse_ItalicContent()
         {
-            string content = "content";
-            string raw = $"_{content}_";
+            var content = "content";
+            var raw = $"_{content}_";
             DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             ParagraphMarkdown paragraph = (ParagraphMarkdown)documentMarkdown.Child.First();
             IMarkdownObject child = paragraph.Child.First();
@@ -51,8 +51,8 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void RawBold_Parse_TypeBold()
         {
-            string content = "content";
-            string raw = $"__{content}__";
+            var content = "content";
+            var raw = $"__{content}__";
             DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             ParagraphMarkdown paragraph = (ParagraphMarkdown)documentMarkdown.Child.First();
             IMarkdownObject child = paragraph.Child.First();
@@ -62,8 +62,8 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void RawBold_Parse_ContentBold()
         {
-            string content = "content";
-            string raw = $"__{content}__";
+            var content = "content";
+            var raw = $"__{content}__";
             DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             ParagraphMarkdown paragraph = (ParagraphMarkdown)documentMarkdown.Child.First();
             IMarkdownObject child = paragraph.Child.First();
@@ -74,8 +74,8 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void RawCode_Parse_TypeCode()
         {
-            string content = "content";
-            string raw = $"`{content}`";
+            var content = "content";
+            var raw = $"`{content}`";
             DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             ParagraphMarkdown paragraph = (ParagraphMarkdown)documentMarkdown.Child.First();
             IMarkdownObject child = paragraph.Child.First();
@@ -85,8 +85,8 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void RawCode_Parse_ContentCode()
         {
-            string content = "content";
-            string raw = $"`{content}`";
+            var content = "content";
+            var raw = $"`{content}`";
             DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             ParagraphMarkdown paragraph = (ParagraphMarkdown)documentMarkdown.Child.First();
             IMarkdownObject child = paragraph.Child.First();
@@ -97,10 +97,10 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void RawMixture_Parse_CorrectMarkdownDocument()
         {
-            string italicContent = "italic";
-            string boldContent = "bold";
-            string codeContent = "code";
-            string raw = $"_{italicContent}_ __{boldContent}__ `{codeContent}`";
+            var italicContent = "italic";
+            var boldContent = "bold";
+            var codeContent = "code";
+            var raw = $"_{italicContent}_ __{boldContent}__ `{codeContent}`";
             DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject documentChildParagraph = documentMarkdown.Child.ToArray()[0];
             IMarkdownObject childParagraphItalic = ((ParagraphMarkdown)documentChildParagraph).Child.ToArray()[0];
@@ -115,8 +115,8 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void RawAttachmentBoldToItalic_Parse_ItalicBoldMarkdown()
         {
-            string content = "content";
-            string raw = $"_ __{content}__ _";
+            var content = "content";
+            var raw = $"_ __{content}__ _";
             DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject documentChildParagraph = documentMarkdown.Child.ToArray()[0];
             IMarkdownObject childParagraphItalic = ((ParagraphMarkdown)documentChildParagraph).Child.ToArray()[0];
@@ -129,8 +129,8 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void RawAttachmentItalicToCode_Parse_CodeMarkdown()
         {
-            string content = "content";
-            string raw = $"` __{content}__ `";
+            var content = "content";
+            var raw = $"` __{content}__ `";
             DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject documentChildParagraph = documentMarkdown.Child.ToArray()[0];
             IMarkdownObject childParagraphCode = ((ParagraphMarkdown)documentChildParagraph).Child.ToArray()[0];
@@ -143,8 +143,8 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void RawShieldItalic_Parse_TextMarkdown()
         {
-            string content = "italic";
-            string raw = $@"\_{content}\_";
+            var content = "italic";
+            var raw = $@"\_{content}\_";
             DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject documentChildParagraph = documentMarkdown.Child.ToArray()[0];
             IMarkdownObject childParagraphText = ((ParagraphMarkdown)documentChildParagraph).Child.ToArray()[0];
@@ -155,8 +155,8 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void RawShieldBold_Parse_TextMarkdown()
         {
-            string content = "bold";
-            string raw = $@"\__{content}\__";
+            var content = "bold";
+            var raw = $@"\__{content}\__";
             DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject documentChildParagraph = documentMarkdown.Child.ToArray()[0];
             IMarkdownObject childParagraphText = ((ParagraphMarkdown)documentChildParagraph).Child.ToArray()[0];
@@ -167,8 +167,8 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void RawShieldCode_Parse_TextMarkdown()
         {
-            string content = "code";
-            string raw = $@"\`{content}\`";
+            var content = "code";
+            var raw = $@"\`{content}\`";
             DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject documentChildParagraph = documentMarkdown.Child.ToArray()[0];
             IMarkdownObject childParagraphText = ((ParagraphMarkdown)documentChildParagraph).Child.ToArray()[0];
@@ -179,8 +179,8 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void RawNumberToItalic_Parse_TextMarkdown()
         {
-            string content = "_12_3";
-            string raw = $"{content}";
+            var content = "_12_3";
+            var raw = $"{content}";
             DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject documentChildParagraph = documentMarkdown.Child.ToArray()[0];
             IMarkdownObject childParagraphText = ((ParagraphMarkdown)documentChildParagraph).Child.ToArray()[0];
@@ -191,8 +191,8 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void RawUnmatched_Parse_Text()
         {
-            string content = "__непарные _символы не считаются `выделением";
-            string raw = $"{content}";
+            var content = "__непарные _символы не считаются `выделением";
+            var raw = $"{content}";
             DocumentMarkdown documentMarkdown = mRawToMarkdownObjectParser.Parse(raw);
             IMarkdownObject documentChildParagraph = documentMarkdown.Child.ToArray()[0];
             IMarkdownObject childParagraphText = ((ParagraphMarkdown)documentChildParagraph).Child.ToArray()[0];

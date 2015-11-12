@@ -18,8 +18,8 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void MarkdownObjectParagraph_Parse_HTMLParagraph()
         {
-            ParagraphMarkdown paragraphMarkdown = new ParagraphMarkdown();
-            DocumentMarkdown documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
+            var paragraphMarkdown = new ParagraphMarkdown();
+            var documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
             string html = mMarkdownObjectToHTMLparser.Parse(documentMarkdown);
             Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorParagraph.OpenTag));
             Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorParagraph.CloseTag));
@@ -29,9 +29,9 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void MarkdownObjectItalic_Parse_HTMLItalic()
         {
-            ItalicMarkdown italicMarkdown = new ItalicMarkdown();
-            ParagraphMarkdown paragraphMarkdown = new ParagraphMarkdown(new List<IMarkdownObject> { italicMarkdown });
-            DocumentMarkdown documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
+            var italicMarkdown = new ItalicMarkdown();
+            var paragraphMarkdown = new ParagraphMarkdown(new List<IMarkdownObject> { italicMarkdown });
+            var documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
             string html = mMarkdownObjectToHTMLparser.Parse(documentMarkdown);
             Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorItalic.OpenTag));
             Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorItalic.CloseTag));
@@ -41,9 +41,9 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void MarkdownObjectBold_Parse_HTMLBold()
         {
-            BoldMarkdown italicMarkdown = new BoldMarkdown();
-            ParagraphMarkdown paragraphMarkdown = new ParagraphMarkdown(new List<IMarkdownObject> { italicMarkdown });
-            DocumentMarkdown documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
+            var italicMarkdown = new BoldMarkdown();
+            var paragraphMarkdown = new ParagraphMarkdown(new List<IMarkdownObject> { italicMarkdown });
+            var documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
             string html = mMarkdownObjectToHTMLparser.Parse(documentMarkdown);
             Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorBold.OpenTag));
             Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorBold.CloseTag));
@@ -53,9 +53,9 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void MarkdownObjectCode_Parse_HTMLCode()
         {
-            CodeMarkdown italicMarkdown = new CodeMarkdown();
-            ParagraphMarkdown paragraphMarkdown = new ParagraphMarkdown(new List<IMarkdownObject> { italicMarkdown });
-            DocumentMarkdown documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
+            var italicMarkdown = new CodeMarkdown();
+            var paragraphMarkdown = new ParagraphMarkdown(new List<IMarkdownObject> { italicMarkdown });
+            var documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
             string html = mMarkdownObjectToHTMLparser.Parse(documentMarkdown);
             Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorCode.OpenTag));
             Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorCode.CloseTag));
@@ -65,7 +65,7 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void MarkdownObjectDocument_Parse_HTMLBody()
         {
-            DocumentMarkdown documentMarkdown = new DocumentMarkdown();
+            var documentMarkdown = new DocumentMarkdown();
             string html = mMarkdownObjectToHTMLparser.Parse(documentMarkdown);
             Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorDocument.OpenTag));
             Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorDocument.CloseTag));
@@ -75,11 +75,11 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void MarkdownObjectDocumentMixture_Parse_HTMLCorrect()
         {
-            ItalicMarkdown italicMarkdown = new ItalicMarkdown();
-            BoldMarkdown boldMarkdown = new BoldMarkdown();
-            CodeMarkdown codeMarkdown = new CodeMarkdown();
-            ParagraphMarkdown paragraphMarkdown = new ParagraphMarkdown(new List<IMarkdownObject> { italicMarkdown, boldMarkdown, codeMarkdown });
-            DocumentMarkdown documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
+            var italicMarkdown = new ItalicMarkdown();
+            var boldMarkdown = new BoldMarkdown();
+            var codeMarkdown = new CodeMarkdown();
+            var paragraphMarkdown = new ParagraphMarkdown(new List<IMarkdownObject> { italicMarkdown, boldMarkdown, codeMarkdown });
+            var documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
             string html = mMarkdownObjectToHTMLparser.Parse(documentMarkdown);
             Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorParagraph.OpenTag));
             Assert.IsTrue(html.Contains(mMarkdownObjectToHTMLparser.InterpretatorParagraph.CloseTag));
@@ -104,10 +104,10 @@ namespace MarkdownConverterTest
         [TestMethod]
         public void MarkdownObjectDocumentAttacment_Parse_HTMLCorrect()
         {
-            BoldMarkdown boldMarkdown = new BoldMarkdown();
-            ItalicMarkdown italicMarkdown = new ItalicMarkdown(new List<IMarkdownObject> { boldMarkdown });
-            ParagraphMarkdown paragraphMarkdown = new ParagraphMarkdown(new List<IMarkdownObject> { italicMarkdown });
-            DocumentMarkdown documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
+            var boldMarkdown = new BoldMarkdown();
+            var italicMarkdown = new ItalicMarkdown(new List<IMarkdownObject> { boldMarkdown });
+            var paragraphMarkdown = new ParagraphMarkdown(new List<IMarkdownObject> { italicMarkdown });
+            var documentMarkdown = new DocumentMarkdown(new List<IMarkdownObject> { paragraphMarkdown });
             string html = mMarkdownObjectToHTMLparser.Parse(documentMarkdown);
 
             Assert.IsTrue(html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorItalic.OpenTag) < html.IndexOf(mMarkdownObjectToHTMLparser.InterpretatorItalic.CloseTag));

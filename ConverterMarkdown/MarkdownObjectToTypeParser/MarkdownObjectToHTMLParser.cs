@@ -20,7 +20,7 @@ namespace ConverterMarkdown.MarkdownObjectToTypeParser
         public override string Parse(DocumentMarkdown documentMarkdown)
         {
             string htmlBody = base.Parse(documentMarkdown);
-            string html = $"<!DOCTYPE html>{Environment.NewLine}<html>{Environment.NewLine}{htmlBody}{Environment.NewLine}</html>";
+            var html = $"<!DOCTYPE html>{Environment.NewLine}<html>{Environment.NewLine}{htmlBody}{Environment.NewLine}</html>";
             return html;
         }
 

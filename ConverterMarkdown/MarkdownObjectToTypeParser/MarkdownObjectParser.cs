@@ -38,12 +38,12 @@ namespace ConverterMarkdown.MarkdownObjectToTypeParser
 
         private string ParseMarkdownObject(IMarkdownObject markdownObject)
         {
-            string contents = string.Empty;
+            var contents = string.Empty;
             if (markdownObject is TextMarkdown)
                 contents = ((TextMarkdown)markdownObject).Content;
             else if(markdownObject is MarkdownContainer)
             {
-                MarkdownContainer markdownContainer = (MarkdownContainer)markdownObject;
+                var markdownContainer = (MarkdownContainer)markdownObject;
                 IEnumerable<string> contentsEnumerable = markdownContainer.Child.Select(item => ParseMarkdownObject(item));
                 contents = string.Join("", contentsEnumerable);
                 MarkdownTagInterpretator markdownInterpretator = MarkdownTagInterpretator.GetMarkdownInterpretator(markdownObject.GetType(), mEnumerableMarkdownInterpretator);
