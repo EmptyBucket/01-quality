@@ -42,7 +42,7 @@ namespace ConverterMarkdown.Markdown
         private IEnumerable<ParagraphMarkdown> ParagraphParse(string rawStr)
         {
             var markdownParagraphEnumerable = new List<ParagraphMarkdown>();
-            string patternParagraph = $@"{Environment.NewLine}\s*{Environment.NewLine}";
+            var patternParagraph = $@"{Environment.NewLine}\s*{Environment.NewLine}";
             var regParagraph = new Regex(patternParagraph);
             string[] paragraphs = regParagraph.Split(rawStr);
             foreach (var item in paragraphs)
@@ -83,7 +83,7 @@ namespace ConverterMarkdown.Markdown
             switch (type)
             {
                 case Code:
-                    TextMarkdown text = new TextMarkdown(contents);
+                    var text = new TextMarkdown(contents);
                     var childCode = new List<IMarkdownObject>()
                     {
                         text

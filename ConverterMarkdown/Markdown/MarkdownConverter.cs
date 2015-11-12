@@ -14,7 +14,7 @@ namespace ConverterMarkdown.Markdown
 
         public string Convert(string rawFileStr)
         {
-            RawToMarkdownObjectParser rawToMarkdownObjectParser = new RawToMarkdownObjectParser();
+            var rawToMarkdownObjectParser = new RawToMarkdownObjectParser();
             DocumentMarkdown documentMarkdown = rawToMarkdownObjectParser.Parse(rawFileStr);
             string html = mToTypeParser.Parse(documentMarkdown);
             return html;
